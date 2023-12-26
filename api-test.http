@@ -1,6 +1,11 @@
 ### GET
 GET http://localhost:8080/coffees
 
+### GET
+GET http://localhost:8080/coffees/73e5805e-9854-4026-b0ac-3aeb4177f4ba
+
+### GET
+GET http://localhost:8080/coffees/abc
 
 ### POST
 POST http://localhost:8080/coffees
@@ -18,6 +23,15 @@ Content-Type: application/json
 {
   "id": "id2",
   "name": "coffee2"
+}
+
+### PUT
+PUT http://localhost:8080/coffees/id2
+Content-Type: application/json
+
+{
+"id": "id2",
+"name": "coffee2"
 }
 
 ### DELETE

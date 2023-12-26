@@ -1,9 +1,11 @@
 package com.example.restkotlin
 
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import java.util.function.Predicate
 
 @RestController
+@RequestMapping("/coffees")
 class RestApiDemoController {
     private val coffees: MutableList<Coffee> = mutableListOf(Coffee("Cafe Cereza"),
         Coffee("Cafe Ganador"),
@@ -11,19 +13,29 @@ class RestApiDemoController {
         Coffee("Cafe Tres Pontas"))
 
     //    @RequestMapping(value = ["/coffees"], method = [RequestMethod.GET])
-    @GetMapping("/coffees")
+    @GetMapping
     fun getCoffees(): Iterable<Coffee> {
         return coffees
-}
+    }
 
-    @PostMapping("/coffees")
+    @GetMapping("/{id}")
+    fun getCoffeeById(@PathVariable id: String): Coffee? {
+        for (c in coffees) {
+            if (c.id == id) {
+                return c
+            }
+        }
+        return null
+    }
+
+    @PostMapping
     fun postCoffee(@RequestBody coffee: Coffee): Coffee {
         coffees.add(coffee)
         return coffee
     }
 
-    @PutMapping("/coffees/{id}")
-    fun putCoffee(@PathVariable id: String, @RequestBody coffee: Coffee): Coffee {
+    @PutMapping("/{id}")
+    fun putCoffee(@PathVariable id: String, @RequestBody coffee: Coffee): ResponseEntity<Coffee> {
         var coffeeIndex = -1
 
         for (c: Coffee in coffees) {
@@ -33,10 +45,10 @@ class RestApiDemoController {
             }
         }
 
-        return if (coffeeIndex == -1) postCoffee(coffee) else coffee;
+        return if (coffeeIndex == -1) ResponseEntity(postCoffee(coffee), HttpStatus.CREATED) else ResponseEntity(coffee, HttpStatus.OK)
     }
 
-    @DeleteMapping("/coffees/{id}")
+    @DeleteMapping("/{id}")
     fun deleteCoffee(@PathVariable id: String) {
         coffees.removeIf { c -> c.id == id }
     }
