@@ -36,3 +36,12 @@ Content-Type: application/json
 
 ### DELETE
 DELETE http://localhost:8080/coffees/id
+
+### GET greeting
+GET http://localhost:8080/greeting
+
+###
+GET http://localhost:8080/greeting/coffee
+
+### GET droid
+GET http://localhost:8080/droid
