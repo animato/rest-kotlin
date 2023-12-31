@@ -45,3 +45,12 @@ GET http://localhost:8080/greeting/coffee
 
 ### GET droid
 GET http://localhost:8080/droid
+
+### GET actuator
+GET http://localhost:8080/actuator
+
+### GET actuator/health
+GET http://localhost:8080/actuator/health
+
+### GET actuator/env
+GET http://localhost:8080/actuator/env
